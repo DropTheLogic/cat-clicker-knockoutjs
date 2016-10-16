@@ -17,7 +17,10 @@ var Cat = function() {
 		else if (this.clickCount() < 40) {
 			return 'Angsty Teen';
 		}
-		else if (this.clickCount() >= 40) {
+		else if (this.clickCount() < 60) {
+			return 'Suburbanite';
+		}
+		else if (this.clickCount() >= 80) {
 			return 'Elder Statesman';
 		}
 	}, this);
