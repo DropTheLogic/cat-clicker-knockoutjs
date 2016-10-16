@@ -3,21 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Clicker</title>
+    <style type="text/css">
+        body {
+            font-family: "Lucida Bright", Georgia, serif;
+            background-color: #c3defb;
+            text-align: center;
+        }
+        #cat-name {
+            font-size: 40px;
+            margin: 20px 10px 0px 10px;
+        }
+        h3 {
+            margin: 0px 0px 15px 0px;
+            font-style: italic;
+        }
+        #cat-img {
+            margin: 10px 0px;
+            border: 1px solid black;
+            border-radius: 9px;
+            max-width: 100%;
+            box-shadow: 2px 2px 8px #000;
+        }
+        #cat-list {
+            list-style : none;
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 0px;
+            padding: 0px;
+            max-width: 720px;
+            border-bottom: 3px double #000;
+        }
+        #cat-list li {
+            font-weight : bold;
+            padding : 20px;
+            text-align : center;
+            text-decoration : none;
+            flex-grow: 1;
+            border-top: 1px solid transparent;
+        }
+        #cat-list li:hover {
+            background-color : #fff;
+            border-top: 1px solid black;
+        }
+        #nicknames ul {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 720px;
+            margin: 0px;
+            line-height: 28px;
+            font-style: italic;
+        }
+        #nicknames li {
+            padding: 0px 30px 0px 0px;
+        }
+    </style>
 </head>
 <body>
-    <ul id="cat-list"></ul>
-    <div id="cat">
+    <ul id="cat-list" data-bind="foreach: catList">
+        <li data-bind="click: $parent.setCurrentCat, text: name"></li>
+    </ul>
+    <div id="cat" data-bind="with: currentCat">
 
-        <h2 id="cat-name" data-bind="text: currentCat().name"></h2>
-        <h3 data-bind="text: currentCat().title"></h3>
-        <div id="cat-count" data-bind="text: currentCat().clickCount"></div>
+        <h2 id="cat-name" data-bind="text: name"></h2>
+        <h3 data-bind="text: title"></h3>
+        <div id="cat-count"
+            data-bind="text: `Number of clicks:` + ` ${clickCount()}`"></div>
         <img id="cat-img" src="" alt="cute cat"
-            data-bind="click: incrementCounter,
-            attr: {src: currentCat().imgSrc}">
+            data-bind="click: $parent.incrementCounter, attr: {src: imgSrc}">
         <div id="nicknames">
-            Known Aliases:
-            <ul data-bind="foreach: currentCat().nicknames">
-                <li data-bind="text: $data"></li>
+            <h4>Known Aliases:</h4>
+            <ul data-bind="foreach: nicknames">
+                <li data-bind='text: "\"" + $data + "\""'></li>
             </ul>
         </div>
 
