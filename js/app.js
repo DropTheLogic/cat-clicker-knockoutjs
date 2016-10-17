@@ -45,9 +45,9 @@ var initialCats = [
 
 var Cat = function(data) {
 	var self = this;
-	this.clickCount = ko.observable(0);
-	this.name = ko.observable(data.name);
-	this.imgSrc = ko.observable(data.imgSrc);
+	this.clickCount = ko.protectedObservable(0);
+	this.name = ko.protectedObservable(data.name);
+	this.imgSrc = ko.protectedObservable(data.imgSrc);
 	this.attribution = ko.observable(data.imgAttribution);
 	this.nicknames = ko.observableArray(data.nicknames);
 
@@ -86,7 +86,74 @@ var ViewModel = function() {
 
 	this.incrementCounter = function() {
 		this.clickCount(this.clickCount() + 1);
+		this.clickCount.commit();
 	};
-}
+
+	this.showAdmin = ko.observable(false);
+	this.setShowAdmin = function() {
+		this.showAdmin((self.showAdmin()) ? false : true);
+	};
+
+	this.update = function() {
+		// Handle clickCount being a valid number
+		var oldNum = this.clickCount(); // Save old value
+		// Check for valid number by trying to coerce a number
+		// from the String entered via the form input field
+		this.clickCount.commit();
+		var possibleNum = parseFloat(this.clickCount());
+		// If invalid input is found, revert to old value
+		if (typeof possibleNum != 'number' || isNaN(possibleNum)) {
+			alert("Please enter a valid number");
+			this.clickCount(oldNum);
+		}
+		else {
+			this.clickCount(possibleNum);
+		}
+		// Update values
+		this.clickCount.commit();
+		this.name.commit();
+		this.imgSrc.commit();
+	};
+
+	this.cancel = function() {
+		this.clickCount.reset();
+		this.name.reset();
+		this.imgSrc.reset();
+	}
+};
+
+//wrapper to an observable that requires accept/cancel
+ko.protectedObservable = function(initialValue) {
+    //private variables
+    var _actualValue = ko.observable(initialValue),
+        _tempValue = initialValue;
+
+    //computed observable that we will return
+    var result = ko.computed({
+        //always return the actual value
+        read: function() {
+           return _actualValue();
+        },
+        //stored in a temporary spot until commit
+        write: function(newValue) {
+             _tempValue = newValue;
+        }
+    }).extend({ notify: "always" });
+
+    //if different, commit temp value
+    result.commit = function() {
+        if (_tempValue !== _actualValue()) {
+             _actualValue(_tempValue);
+        }
+    };
+
+    //force subscribers to take original
+    result.reset = function() {
+        _actualValue.valueHasMutated();
+        _tempValue = _actualValue();   //reset temp value
+    };
+
+    return result;
+};
 
 ko.applyBindings(new ViewModel);
