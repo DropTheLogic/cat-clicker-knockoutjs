@@ -110,6 +110,12 @@
                     URL of image:
                     <input type="text" name="cat-URL" data-bind="value: imgSrc">
                 </div>
+								<div>
+									Nicknames:
+									<div data-bind="foreach: nicknames">
+										<input type="text" name="cat-nick" data-bind="value: $data">
+									</div>
+								</div>
                 <div id="form-buttons">
                     <button id="button-cancel" type="button" data-bind="click: $parent.cancel">Cancel</button>
                     <button id="button-enter" type="submit"

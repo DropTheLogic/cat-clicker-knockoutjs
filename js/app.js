@@ -49,7 +49,11 @@ var Cat = function(data) {
 	this.name = ko.protectedObservable(data.name);
 	this.imgSrc = ko.protectedObservable(data.imgSrc);
 	this.attribution = ko.observable(data.imgAttribution);
-	this.nicknames = ko.observableArray(data.nicknames);
+	this.nicknames = ko.observableArray();
+	
+	data.nicknames.forEach(function(nickname) {
+		 self.nicknames.push(ko.protectedObservable(nickname));
+	});
 
 	this.title = ko.computed( function() {
 		if (this.clickCount() < 10) {
@@ -95,6 +99,7 @@ var ViewModel = function() {
 	};
 
 	this.update = function() {
+		console.log('readying commits');
 		// Handle clickCount being a valid number
 		var oldNum = this.clickCount(); // Save old value
 		// Check for valid number by trying to coerce a number
