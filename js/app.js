@@ -50,6 +50,11 @@ var Cat = function(data) {
 	this.imgSrc = ko.protectedObservable(data.imgSrc);
 	this.attribution = ko.observable(data.imgAttribution);
 	this.nicknames = ko.observableArray();
+	this.hasNicknames = ko.computed( function() {
+		if (this.nicknames().length > 0)
+			return true;
+		return false;
+	}, this);
 
 	data.nicknames.forEach(function(nickname) {
 		 self.nicknames.push(ko.protectedObservable(nickname));
@@ -96,6 +101,10 @@ var ViewModel = function() {
 	this.showAdmin = ko.observable(false);
 	this.setShowAdmin = function() {
 		this.showAdmin((self.showAdmin()) ? false : true);
+	};
+
+	this.deleteName = function(data, index) {
+		self.currentCat().nicknames.splice(index(), 1);
 	};
 
 	this.update = function() {

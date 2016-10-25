@@ -71,6 +71,26 @@
             font-weight: 700;
             text-transform: uppercase;
         }
+        #nickname-admin {
+            width: 200px;
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .delete {
+            font-family: sans-serif;
+            font-weight: 100;
+            color: #777;
+            text-shadow: 0 1px 0 #fff;
+            display: inline-block;
+            position: relative;
+        }
+        .delete:after {
+            content: '×';
+        }
+        .delete:hover {
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +105,7 @@
             data-bind="text: `Number of clicks:` + ` ${clickCount()}`"></div>
         <img id="cat-img" src="" alt="cute cat"
             data-bind="click: $parent.incrementCounter, attr: {src: imgSrc}">
-        <div id="nicknames">
+        <div id="nicknames" data-bind="visible: hasNicknames">
             <h4>Known Aliases:</h4>
             <ul data-bind="foreach: nicknames">
                 <li data-bind='text: "\"" + $data + "\""'></li>
@@ -110,10 +130,11 @@
                     URL of image:
                     <input type="text" name="cat-URL" data-bind="value: imgSrc">
                 </div>
-                <div>
+                <div id="nickname-admin">
                     Nicknames:
                     <div data-bind="foreach: nicknames">
                         <input type="text" name="cat-nick" data-bind="value: $data">
+                        <div class="delete" data-bind="click: function() { $parents[1].deleteName($data, $index)}"></div>
                     </div>
                 </div>
                 <div id="form-buttons">
