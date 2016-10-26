@@ -136,6 +136,11 @@
                         <input type="text" name="cat-nick" data-bind="value: $data">
                         <div class="delete" data-bind="click: function() { $parents[1].deleteName($data, $index)}"></div>
                     </div>
+                    <div>
+                        Add Nickname:
+                        <input type="text" name="new-nick" data-bind="value: newNick">
+                        <button type="button" data-bind="click: $parent.addNickname">Add</button>
+                    </div>
                 </div>
                 <div id="form-buttons">
                     <button id="button-cancel" type="button" data-bind="click: $parent.cancel">Cancel</button>

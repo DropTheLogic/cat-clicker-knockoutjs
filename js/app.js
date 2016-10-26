@@ -55,6 +55,7 @@ var Cat = function(data) {
 			return true;
 		return false;
 	}, this);
+	this.newNick = ko.observable();
 
 	data.nicknames.forEach(function(nickname) {
 		 self.nicknames.push(ko.protectedObservable(nickname));
@@ -105,6 +106,11 @@ var ViewModel = function() {
 
 	this.deleteName = function(data, index) {
 		self.currentCat().nicknames.splice(index(), 1);
+	};
+	
+	this.addNickname = function() {
+		self.currentCat().nicknames.push(self.currentCat().newNick());
+		self.currentCat().newNick('');
 	};
 
 	this.update = function() {
