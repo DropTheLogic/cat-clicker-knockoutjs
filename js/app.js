@@ -107,10 +107,13 @@ var ViewModel = function() {
 	this.deleteName = function(data, index) {
 		self.currentCat().nicknames.splice(index(), 1);
 	};
-	
+
 	this.addNickname = function() {
-		self.currentCat().nicknames.push(self.currentCat().newNick());
-		self.currentCat().newNick('');
+		var newNick = self.currentCat().newNick;
+		if (newNick() != undefined && newNick() != '') {
+			self.currentCat().nicknames.push(newNick());
+			newNick(''); // Reset nickname to be added
+		}
 	};
 
 	this.update = function() {
