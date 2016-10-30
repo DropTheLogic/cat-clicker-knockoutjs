@@ -128,20 +128,20 @@
                 <legend>Admin Edit</legend>
                 <div>
                     Cat Name:
-                    <input type="text" name="cat-name" data-bind="value: name">
+                    <input type="text" name="cat-name" data-bind="textInput: name">
                 </div>
                 <div>
                     Number of Clicks:
-                    <input type="text" name="cat-clicks" data-bind="value: clickCount">
+                    <input type="text" name="cat-clicks" data-bind="textInput: clickCount">
                 </div>
                 <div>
                     URL of image:
-                    <input type="text" name="cat-URL" data-bind="value: imgSrc">
+                    <input type="text" name="cat-URL" data-bind="textInput: imgSrc">
                 </div>
                 <div id="nickname-admin">
                     <div data-bind="visible: hasNicknames">Nicknames:
                         <div data-bind="foreach: nicknames">
-                            <input type="text" name="cat-nick" data-bind="value: $data">
+                            <input type="text" data-bind="textInput: $data">
                             <div class="delete" data-bind="click: function() { $parents[1].deleteName($data, $index)}"></div>
                         </div>
                     </div>
