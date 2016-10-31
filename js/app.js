@@ -111,7 +111,7 @@ var ViewModel = function() {
 	this.addNickname = function() {
 		var newNick = self.currentCat().newNick;
 		if (newNick() != undefined && newNick() != '') {
-			self.currentCat().nicknames.push(newNick());
+			self.currentCat().nicknames.push(ko.protectedObservable(newNick()));
 			newNick(''); // Reset nickname to be added
 		}
 	};
@@ -135,6 +135,9 @@ var ViewModel = function() {
 		this.clickCount.commit();
 		this.name.commit();
 		this.imgSrc.commit();
+		this.nicknames().forEach(function(nickname) {
+			nickname.commit();
+		});
 	};
 
 	this.cancel = function() {

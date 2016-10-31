@@ -141,7 +141,7 @@
                 <div id="nickname-admin">
                     <div data-bind="visible: hasNicknames">Nicknames:
                         <div data-bind="foreach: nicknames">
-                            <input type="text" data-bind="textInput: $data">
+                            <input type="text" data-bind="textInput: $rawData">
                             <div class="delete" data-bind="click: function() { $parents[1].deleteName($data, $index)}"></div>
                         </div>
                     </div>
