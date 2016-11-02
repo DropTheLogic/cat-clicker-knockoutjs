@@ -74,16 +74,34 @@
             margin-right: auto;
             padding-top: 10px;
         }
+        #admin-form fieldset {
+            background: #eeefff;
+        }
         legend {
             font-size: 22px;
             font-weight: 700;
             text-transform: uppercase;
+            background: #eeefff;
+            padding: 5px;
+            border: 3px double #000;
+        }
+        #admin-top-fields {
+            margin-left: auto;
+            margin-right: 25px;
+        }
+        #admin-top-fields div {
+            display: inline-block;
+            float: right;
         }
         #nickname-admin {
             width: 250px;
             margin-top: 15px;
             margin-left: auto;
             margin-right: auto;
+            margin-bottom: 20px;
+        }
+        #nickname-admin button {
+            position: absolute;
         }
         .delete {
             font-family: sans-serif;
@@ -91,7 +109,7 @@
             color: #777;
             text-shadow: 0 1px 0 #fff;
             display: inline-block;
-            position: relative;
+            position: absolute;
         }
         .delete:after {
             content: '×';
@@ -126,17 +144,13 @@
         <form id="admin-form" data-bind="visible: showAdmin">
             <fieldset data-bind="with: currentCat">
                 <legend>Admin Edit</legend>
-                <div>
-                    Cat Name:
-                    <input type="text" name="cat-name" data-bind="textInput: name">
-                </div>
-                <div>
-                    Number of Clicks:
-                    <input type="text" name="cat-clicks" data-bind="textInput: clickCount">
-                </div>
-                <div>
-                    URL of image:
-                    <input type="text" name="cat-URL" data-bind="textInput: imgSrc">
+                <div id="admin-top-fields">
+                    <div>Cat Name:
+                    <input type="text" name="cat-name" data-bind="textInput: name"></div>
+                    <div>Number of Clicks:
+                    <input type="text" name="cat-clicks" data-bind="textInput: clickCount"></div>
+                    <div>URL of image:
+                    <input type="text" name="cat-URL" data-bind="textInput: imgSrc"></div>
                 </div>
                 <div id="nickname-admin">
                     <div data-bind="visible: hasNicknames">Nicknames:
